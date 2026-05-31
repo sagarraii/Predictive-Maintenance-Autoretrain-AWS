@@ -10,6 +10,7 @@ COLUMNS:
   Type: object
   UDI: int64
   
+  
 TARGET_COLUMNS:
   target_1: Target
   target_2: Failure Type
