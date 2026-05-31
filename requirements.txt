@@ -1,0 +1,12 @@
+pandas
+numpy
+matplotlib
+seaborn
+ipykernel
+kaggle
+#kagglehub == 0.3.7
+python-dotenv
+joblib
+ensure
+python-box
+pyyaml
