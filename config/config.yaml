@@ -1,0 +1,11 @@
+# ----------DATA INGESTION------------
+
+data_ingestion:
+  data_download_dir: data/raw
+  dataset_name: "shivamb/machine-predictive-maintenance-classification"
+  
+
+# ----------DATA VALIDATION------------
+
+data_validation:
+  VALIDATION_STATUS: 

@@ -1,0 +1,30 @@
+# Automated Predictive Maintenance parameter boilerplate CODE
+model:
+  name: predictive_maintenance_model
+  version: 0.1.0
+  parameters:
+    learning_rate: 0.001
+    batch_size: 32
+    epochs: 10
+
+data:
+  input_path: data/raw
+  processed_path: data/processed
+  features:
+    - sensor_1
+    - sensor_2
+    - sensor_3
+    - temperature
+    - vibration
+
+training:
+  seed: 42
+  validation_split: 0.2
+  shuffle: true
+
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
