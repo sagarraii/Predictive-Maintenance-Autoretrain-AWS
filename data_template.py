@@ -4,6 +4,7 @@ import sys
 
 from src.logger.logging_config import logger
 from src.exception.custom_exception import CustomException
+
 df = pd.read_csv("data/raw/predictive_maintenance.csv")
 
 schema = {
