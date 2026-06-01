@@ -1,0 +1,24 @@
+============================================================
+VALIDATION REPORT
+============================================================
+Generated At       : 2026-06-01 14:00:39
+Dataset File       : data/raw/predictive_maintenance.csv
+------------------------------------------------------------
+DATASET OVERVIEW
+------------------------------------------------------------
+Rows (excluding Header) : 10000
+Columns                 : 10
+Numeric Columns         : 7
+Categorical Columns     : 3
+------------------------------------------------------------
+VALIDATION CHECKS
+------------------------------------------------------------
+[PASS] Column Presence Check
+[PASS] Datatype Check
+[PASS] Missing Values Check
+[PASS] Duplicate Rows Check
+------------------------------------------------------------
+SUMMARY
+------------------------------------------------------------
+Overall Validation Status : PASSED
+============================================================
