@@ -1,8 +1,13 @@
 import os
 import yaml
-
+import sys
 import json
 import joblib
+import dill
+
+
+import numpy as np
+
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
@@ -10,7 +15,7 @@ from typing import Any
 from box.exceptions import BoxValueError
 
 from src.logger.logging_config import logger
-
+from src.exception.custom_exception import CustomException
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
     """reads yaml file and returns
@@ -33,9 +38,21 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
     except BoxValueError:
         raise ValueError("yaml file is empty")
     except Exception as e:
-        raise e
-        
+        raise CustomException(e, sys)
 
+@ensure_annotations
+def write_yaml_file(file_path: str, content: object, replace:bool=False) -> None:
+    try:
+        if replace:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+        with open(file_path, "w") as file:
+            yaml.dump(content, file)
+    except Exception as e:
+        raise CustomException(e, sys)
+    
 
 @ensure_annotations
 def create_directories(path_to_directories: list, verbose=True):
