@@ -8,4 +8,6 @@ data_ingestion:
 # ----------DATA VALIDATION------------
 
 data_validation:
-  VALIDATION_STATUS: 
+  root_dir: artifacts/data_validation
+  STATUS_FILE: artifacts/data_validation/status.txt
+  data_file_path: data/raw/predictive_maintenance.csv
