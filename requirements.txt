@@ -4,9 +4,11 @@ matplotlib
 seaborn
 ipykernel
 kaggle
-#kagglehub == 0.3.7
 python-dotenv
 joblib
 ensure
 python-box
 pyyaml
+dill
+pytest>=8.0.0
+pytest-cov>=5.0.0   # optional but useful for coverage reports
