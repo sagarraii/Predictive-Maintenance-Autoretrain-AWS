@@ -1,13 +1,53 @@
-# ----------DATA INGESTION------------
+# ----------DATA INGESTION--------------
 
 data_ingestion:
   data_download_dir: data/raw
   dataset_name: "shivamb/machine-predictive-maintenance-classification"
   
 
-# ----------DATA VALIDATION------------
+# ----------DATA VALIDATION---------
 
 data_validation:
   root_dir: artifacts/data_validation
+
   STATUS_FILE: artifacts/data_validation/status.txt
   data_file_path: data/raw/predictive_maintenance.csv
+
+
+# ----------DATA TRANSFORMATION------------
+
+data_transformation:
+  root_dir: data/preprocessed
+  data_file_path: data/raw/predictive_maintenance.csv
+  
+  train_data_path: data/preprocessed/X_train.npy
+  valid_data_path: data/preprocessed/X_valid.npy
+  test_data_path: data/preprocessed/X_test.npy
+
+  train_target_path: data/preprocessed/y_train.npy
+  valid_target_path: data/preprocessed/y_valid.npy
+  test_target_path: data/preprocessed/y_test.npy
+
+  preprocessor_path: artifacts/preprocessors/preprocessor.pkl
+
+# ----------MODEL TRAINER------------
+
+model_trainer:
+  root_dir: artifacts/models
+
+  best_model_path: artifacts/models/best_model.pkl
+  best_params_path: artifacts/models/best_params.yaml
+  model_report_path: artifacts/models/model_report.yaml
+  search_results_dir: artifacts/models/search_results
+
+# ----------MODEL EVALUATION------------
+
+model_evaluation:
+  root_dir: artifacts/evaluation
+
+  evaluation_report_path: artifacts/evaluation/evaluation_report.yaml
+  classification_report_path: artifacts/evaluation/classification_report.yaml
+  confusion_matrix_path: artifacts/evaluation/confusion_matrix.png
+  model_acceptance_path: artifacts/evaluation/model_acceptance.yaml
+  threshold_analysis_path: artifacts/evaluation/threshold_analysis.yaml
+
