@@ -1,10 +1,10 @@
 import os
-import sys
+#import sys
 import pytest
 import pandas as pd
-import tempfile
+#import tempfile
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+#from unittest.mock import MagicMock, patch
 
 from src.components.data_validation import DataValidation
 from src.entity.config_entity import DataValidationConfig
