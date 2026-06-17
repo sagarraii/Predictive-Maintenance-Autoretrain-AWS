@@ -226,3 +226,11 @@ APM_env/
 
 # ------------------------------- LOGS -------------------------------------
 logs/
+
+# Artifacts
+artifacts/
+
+# Data
+data/
+
+.vscode/
