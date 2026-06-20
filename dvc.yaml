@@ -1,0 +1,35 @@
+stages:
+  data_ingestion:
+    cmd: python -m src.stages.data_ingestion_stage
+    deps:
+      - src/stages/data_ingestion_stage.py
+      - src/components/data_ingestion.py
+      - config/config.yaml
+    outs:
+      - data/raw
+
+  data_transformation:
+    cmd: python -m src.stages.data_transformation_stage
+    deps:
+      - src/stages/data_transformation_stage.py
+      - src/components/data_transformation.py
+      - data/raw
+      - config/config.yaml
+    outs:
+      - data/preprocessed
+      - artifacts/preprocessors/preprocessor.pkl
+
+  model_training:
+    cmd: python -m src.stages.model_trainer_stage
+    deps:
+      - src/stages/model_trainer_stage.py
+      - src/components/model_trainer.py
+      - data/preprocessed
+      - artifacts/preprocessors/preprocessor.pkl
+      - config/config.yaml
+      - params.yaml
+    outs:
+      - artifacts/models/best_model.pkl
+      - artifacts/models/best_params.yaml
+      - artifacts/models/model_report.yaml
+      - artifacts/models/search_results
