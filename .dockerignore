@@ -1,0 +1,34 @@
+.git
+.github
+
+__pycache__/
+*.py[cod]
+
+.venv/
+venv/
+env/
+APM_env/
+.vscode/
+
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+catboost_info/
+logs/
+*.log
+
+# Training outputs and caches
+mlruns/
+# artifacts/
+dvc.lock
+.dvc/cache/
+data/
+notebooks/
+
+# Local caches
+.cache/
+.pytest_cache/
+
+README.md
+.DS_Store
