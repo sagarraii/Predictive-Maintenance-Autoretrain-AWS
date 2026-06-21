@@ -1,0 +1,15 @@
+# development/testing tools.
+
+-r requirements.txt
+matplotlib
+seaborn
+catboost
+ipykernel
+pytest>=8.0.0
+pytest-cov>=5.0.0
+kaggle
+dvc
+dvc[s3]
+mlflow
+dagshub
+dvc
