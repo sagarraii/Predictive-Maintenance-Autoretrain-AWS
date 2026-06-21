@@ -1,2 +1,4 @@
+[core]
+    remote = origin
 ['remote "origin"']
     url = https://dagshub.com/sagarraii/Predictive-Maintenance-Autoretrain-AWS.dvc
