@@ -1,22 +1,18 @@
-pandas
-numpy
-matplotlib
-seaborn
-ipykernel
-kaggle
-python-dotenv
-joblib
+# runtime dependencies
+
+pandas 
+numpy 
+
+
+
+python-dotenv 
+joblib 
 ensure
 python-box
-pyyaml
-dill
-pytest>=8.0.0
-pytest-cov>=5.0.0   # optional but useful for coverage reports
-scikit-learn
+pyyaml 
+dill 
+
+scikit-learn 
 imblearn
-catboost
-xgboost
-
-
-# code run in the last to update dependencies
-# pip freeze > requirements.txt
+xgboost 
+Flask 
