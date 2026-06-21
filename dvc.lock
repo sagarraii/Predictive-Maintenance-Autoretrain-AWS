@@ -73,8 +73,8 @@ stages:
       size: 1045
     - path: src/components/model_trainer.py
       hash: md5
-      md5: 2ac6ae7d45218f55798860ad87261a52
-      size: 13068
+      md5: f4c26da8cf63485cbd53f217ee686bf2
+      size: 13698
     - path: src/stages/model_trainer_stage.py
       hash: md5
       md5: 27ee7564358f33948d8a13f9bdf9da37
@@ -82,8 +82,8 @@ stages:
     outs:
     - path: artifacts/models/best_model.pkl
       hash: md5
-      md5: 5f9e947940bce3048310ffa09785eb5f
-      size: 872240
+      md5: 656c590c8dcd6503562a94edfe9b1d32
+      size: 4966835
     - path: artifacts/models/best_params.yaml
       hash: md5
       md5: ed179d60977d7d62cdbf9c13b522811d
@@ -94,6 +94,6 @@ stages:
       size: 1248
     - path: artifacts/models/search_results
       hash: md5
-      md5: e6e300903cbc484a296568bfca767a44.dir
-      size: 7000
+      md5: 97661f154078917d40d23fd48ec62700.dir
+      size: 6993
       nfiles: 4
