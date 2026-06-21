@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Maintenance AI</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+<!-- Ambient background -->
+<div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+</div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<div class="wrap">
+
+    <!-- Header -->
+    <header class="header">
+        <div class="brand">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M12 22V12M12 12L3 7M12 12l9-5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div>
+                <p class="brand-title">Predictive Maintenance</p>
+                <p class="brand-sub">Machine Failure Intelligence System</p>
+            </div>
+        </div>
+        <div class="status-chip">
+            <span class="status-dot"></span>
+            Model Online
+        </div>
+    </header>
+
+    <main class="main-grid">
+
+        <!-- Left: Intro / context panel -->
+        <section class="intro-card">
+            <span class="eyebrow">Industrial AI &middot; Real-time inference</span>
+            <h1 class="headline">Know a failure<br/>before it happens.</h1>
+            <p class="lede">
+                Enter live sensor readings from your machine and the trained classifier
+                will estimate the likelihood of failure in real time, so you can act before
+                downtime hits the floor.
+            </p>
+
+            <ul class="feature-list">
+                <li>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h4l3 8 4-16 3 8h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <div>
+                        <p class="feature-title">Sensor-driven prediction</p>
+                        <p class="feature-text">Temperature, torque, RPM and wear, fused into one signal.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <div>
+                        <p class="feature-title">Instant inference</p>
+                        <p class="feature-text">Trained ML pipeline returns a verdict in milliseconds.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                    </span>
+                    <div>
+                        <p class="feature-title">Confidence scored</p>
+                        <p class="feature-text">Every prediction ships with a calibrated probability.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="mini-stats">
+                <div class="mini-stat">
+                    <p class="mini-stat-value">4</p>
+                    <p class="mini-stat-label">Models compared</p>
+                </div>
+                <div class="mini-stat">
+                    <p class="mini-stat-value">F1</p>
+                    <p class="mini-stat-label">Optimised metric</p>
+                </div>
+                <div class="mini-stat">
+                    <p class="mini-stat-value">SMOTE</p>
+                    <p class="mini-stat-label">Imbalance handled</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right: Form card -->
+        <section class="form-card">
+
+            <div class="form-card-head">
+                <h2>Run a Prediction</h2>
+                <p>Fill in the current machine readings below.</p>
+            </div>
+
+            <form action="/predict" method="POST" class="predict-form" id="predict-form">
+
+                <div class="field full">
+                    <label for="Type">Machine Type</label>
+                    <div class="select-wrap">
+                        <select name="Type" id="Type" required>
+                            <option value="" disabled selected>Select quality variant</option>
+                            <option value="L">Low (L)</option>
+                            <option value="M">Medium (M)</option>
+                            <option value="H">High (H)</option>
+                        </select>
+                        <svg class="select-caret" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="air_temperature">Air Temperature <span>(K)</span></label>
+                    <div class="input-wrap">
+                        <input type="number" step="any" name="air_temperature" id="air_temperature" placeholder="298.1" required>
+                        <span class="unit">K</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="process_temperature">Process Temperature <span>(K)</span></label>
+                    <div class="input-wrap">
+                        <input type="number" step="any" name="process_temperature" id="process_temperature" placeholder="308.6" required>
+                        <span class="unit">K</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="rotational_speed">Rotational Speed <span>(rpm)</span></label>
+                    <div class="input-wrap">
+                        <input type="number" name="rotational_speed" id="rotational_speed" placeholder="1500" required>
+                        <span class="unit">rpm</span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="torque">Torque <span>(Nm)</span></label>
+                    <div class="input-wrap">
+                        <input type="number" step="any" name="torque" id="torque" placeholder="40.5" required>
+                        <span class="unit">Nm</span>
+                    </div>
+                </div>
+
+                <div class="field full">
+                    <label for="tool_wear">Tool Wear <span>(minutes)</span></label>
+                    <div class="input-wrap">
+                        <input type="number" name="tool_wear" id="tool_wear" placeholder="120" required>
+                        <span class="unit">min</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span class="btn-label">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Predict Machine Status
+                    </span>
+                </button>
+
+            </form>
+
+            {% if prediction_text %}
+            <div class="result-card {{ 'is-failure' if 'Failure' in prediction_text else ('is-error' if 'Error' in prediction_text else 'is-ok') }}" id="result-card">
+                <div class="result-icon">
+                    {% if 'Failure' in prediction_text %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 17h.01M10.3 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.7 3.86a2 2 0 00-3.4 0z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {% elif 'Error' in prediction_text %}
+                    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M9 9l6 6M15 9l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    {% else %}
+                    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {% endif %}
+                </div>
+
+                <div class="result-body">
+                    <h3>{{ prediction_text }}</h3>
+
+                    {% if probability is not none %}
+                    <div class="prob-row">
+                        <div class="prob-bar-track">
+                            <div class="prob-bar-fill" style="--target-width: {{ (probability * 100) | round(1) }}%;"></div>
+                        </div>
+                        <span class="prob-value">{{ "%.4f"|format(probability * 100) }}%</span>
+                    </div>
+                    <p class="prob-caption">Estimated failure probability</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        Built on a modular MLOps pipeline &middot; trained classifier served via Flask
+    </footer>
+
+</div>
+
+<script>
+    const form = document.getElementById('predict-form');
+    const btn = document.getElementById('submit-btn');
+    if (form && btn) {
+        form.addEventListener('submit', () => {
+            btn.classList.add('is-loading');
+            btn.disabled = true;
+        });
+    }
+
+    const resultCard = document.getElementById('result-card');
+    if (resultCard) {
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+</script>
+
+</body>
+</html>
