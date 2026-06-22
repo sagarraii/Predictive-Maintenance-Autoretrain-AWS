@@ -227,9 +227,15 @@ APM_env/
 # ------------------------------- LOGS -------------------------------------
 logs/
 
-# Artifacts
-artifacts/
-artifacts/data_validation/
+# Ignore everything inside artifacts
+artifacts/*
+
+# But keep data_validation folder
+!artifacts/data_validation/
+
+# And keep its files
+!artifacts/data_validation/**
+
 # Data
 data/
 
