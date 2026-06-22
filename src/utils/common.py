@@ -16,7 +16,7 @@ from ensure import ensure_annotations
 from src.logger.logging_config import logger
 from src.exception.custom_exception import CustomException
 
-@ensure_annotations
+#@ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
     """Reads a YAML file and returns a ConfigBox."""
 
@@ -63,7 +63,7 @@ def create_directories(path_to_directories: list[Path], verbose: bool = True) ->
     except Exception as e:
         raise CustomException(e, sys)
 
-@ensure_annotations
+#@ensure_annotations
 def save_json(path: Path, data: dict) -> None:
     """Saves dictionary data to a JSON file."""
 
@@ -77,7 +77,7 @@ def save_json(path: Path, data: dict) -> None:
     except Exception as e:
         raise CustomException(e, sys)
 
-@ensure_annotations
+#@ensure_annotations
 def load_json(path: Path) -> ConfigBox:
     """Loads JSON file data as class attributes."""
 
@@ -91,7 +91,7 @@ def load_json(path: Path) -> ConfigBox:
     except Exception as e:
         raise CustomException(e, sys)
 
-@ensure_annotations
+#@ensure_annotations
 def save_bin(data: Any, path: Path) -> None:
     """Saves binary file using joblib."""
 
@@ -104,7 +104,7 @@ def save_bin(data: Any, path: Path) -> None:
     except Exception as e:
         raise CustomException(e, sys)
 
-@ensure_annotations
+#@ensure_annotations
 def load_bin(path: Path) -> Any:
     """Loads binary data using joblib."""
 
@@ -131,7 +131,7 @@ def save_numpy_array_data(file_path: Path, array: np.ndarray) -> None:
     except Exception as e:
         raise CustomException(e, sys)
 
-@ensure_annotations
+#@ensure_annotations
 def load_numpy_array_data(file_path: Path) -> np.ndarray:
     """Loads numpy array data from a file."""
 
