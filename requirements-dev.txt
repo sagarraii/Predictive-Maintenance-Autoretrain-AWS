@@ -1,6 +1,8 @@
 # development/testing tools.
 
 -r requirements.txt
+
+flake8
 matplotlib
 seaborn
 catboost
