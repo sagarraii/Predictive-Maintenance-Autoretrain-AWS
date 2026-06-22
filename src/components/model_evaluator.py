@@ -1,8 +1,27 @@
 import sys
 import numpy as np
+
+import os
+import mlflow
+
+from src.utils.mlflow_config import (
+    MLFLOW_TRACKING_URI,
+    MLFLOW_TRACKING_USERNAME,
+    MLFLOW_TRACKING_PASSWORD,
+    MLFLOW_EXPERIMENT_NAME,
+)
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = MLFLOW_TRACKING_USERNAME
+os.environ["MLFLOW_TRACKING_PASSWORD"] = MLFLOW_TRACKING_PASSWORD
+
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
+
+import matplotlib.pyplot as plt
+
 from sklearn.base import BaseEstimator
 from pathlib import Path
-import matplotlib.pyplot as plt
+
 from src.logger.logging_config import logger
 from src.exception.custom_exception import CustomException
 from src.entity.config_entity import (
@@ -235,15 +254,35 @@ class ModelEvaluation:
         try: 
             logger.info("Starting model evaluation pipeline.")
 
-            X_test, y_test = self.read_data()
-            model = self.load_model()
+            with mlflow.start_run(run_name="model_evaluation"):
 
-            metrics, y_pred, y_prob = self.evaluate_model(model=model, X_test=X_test, y_test=y_test,)
-            report = self.generate_classification_report(y_test=y_test, y_pred=y_pred,)
-            self.save_report(report=report, metrics=metrics,)
-            self.save_model_acceptance(metrics)
-            self.save_threshold_analysis(y_test=y_test,y_prob=y_prob,)
-            self.save_confusion_matrix(y_test=y_test, y_pred=y_pred,)
+                X_test, y_test = self.read_data()
+                model = self.load_model()
+
+                metrics, y_pred, y_prob = self.evaluate_model(model=model, X_test=X_test, y_test=y_test,)
+
+                mlflow.log_metric("test_accuracy", metrics["accuracy"])
+                mlflow.log_metric("test_balanced_accuracy", metrics["balanced_accuracy"],)
+                mlflow.log_metric("test_precision", metrics["precision"],)
+                mlflow.log_metric("test_recall", metrics["recall"],)
+                mlflow.log_metric("test_f1", metrics["f1"],)
+                mlflow.log_metric("test_matthews_corrcoef", metrics["matthews_corrcoef"],)
+
+                if metrics["roc_auc"] is not None:
+                    mlflow.log_metric("test_roc_auc", metrics["roc_auc"],)
+
+
+                report = self.generate_classification_report(y_test=y_test, y_pred=y_pred,)
+                self.save_report(report=report, metrics=metrics,)
+                self.save_model_acceptance(metrics)
+                self.save_threshold_analysis(y_test=y_test,y_prob=y_prob,)
+                self.save_confusion_matrix(y_test=y_test, y_pred=y_pred,)
+
+                mlflow.log_artifact(str(self.config.classification_report_path))
+                mlflow.log_artifact(str(self.config.evaluation_report_path))
+                mlflow.log_artifact(str(self.config.model_acceptance_path))
+                mlflow.log_artifact(str(self.config.threshold_analysis_path))
+                mlflow.log_artifact(str(self.config.confusion_matrix_path))
 
             logger.info("Model evaluation completed successfully.")
             return self.config.evaluation_report_path
