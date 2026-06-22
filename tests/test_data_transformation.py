@@ -11,24 +11,27 @@ from src.entity.config_entity import DataTransformationConfig
 
 @pytest.fixture
 def sample_dataframe():
+    np.random.seed(42)
+    
     n = 100
 
-    return pd.DataFrame(
-        {
-            "UDI": range(n),
-            "Product ID": [f"P{i}" for i in range(n)],
-            "Type": np.random.choice(["L", "M", "H"], n),
-            "Air temperature [K]": np.random.normal(300, 2, n),
-            "Process temperature [K]": np.random.normal(310, 2, n),
-            "Rotational speed [rpm]": np.random.randint(1000, 2000, n),
-            "Torque [Nm]": np.random.uniform(20, 80, n),
-            "Tool wear [min]": np.random.randint(0, 250, n),
-            "Failure Type": np.random.choice(
-                ["No Failure", "Heat Dissipation Failure"], n
-            ),
-            "Target": np.random.choice([0, 1], n, p=[0.9, 0.1]),
-        }
-    )
+    target = np.array([0] * 90 + [1] * 10)
+    np.random.shuffle(target)
+
+    return pd.DataFrame({
+        "UDI": range(n),
+        "Product ID": [f"P{i}" for i in range(n)],
+        "Type": np.random.choice(["L", "M", "H"], n),
+        "Air temperature [K]": np.random.normal(300, 2, n),
+        "Process temperature [K]": np.random.normal(310, 2, n),
+        "Rotational speed [rpm]": np.random.randint(1000, 2000, n),
+        "Torque [Nm]": np.random.uniform(20, 80, n),
+        "Tool wear [min]": np.random.randint(0, 250, n),
+        "Failure Type": np.random.choice(
+            ["No Failure", "Heat Dissipation Failure"], n
+        ),
+        "Target": target,
+    })
 
 
 @pytest.fixture
