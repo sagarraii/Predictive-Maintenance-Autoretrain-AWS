@@ -1,11 +1,34 @@
+import os
 import sys
 import pandas as pd
+
+import mlflow
+import mlflow.sklearn
+from src.utils.mlflow_config import (
+    MLFLOW_TRACKING_URI,
+    MLFLOW_TRACKING_USERNAME,
+    MLFLOW_TRACKING_PASSWORD,
+    MLFLOW_EXPERIMENT_NAME,
+)
+
+os.environ["MLFLOW_TRACKING_USERNAME"] = MLFLOW_TRACKING_USERNAME
+os.environ["MLFLOW_TRACKING_PASSWORD"] = MLFLOW_TRACKING_PASSWORD
+
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+mlflow.set_experiment(MLFLOW_EXPERIMENT_NAME)
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RandomizedSearchCV
+from sklearn.calibration import CalibratedClassifierCV
 
-from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score, roc_auc_score)
+from sklearn.metrics import (
+    accuracy_score, 
+    precision_score, 
+    recall_score, 
+    f1_score, 
+    roc_auc_score
+    )
 
 from xgboost import XGBClassifier
 from catboost import CatBoostClassifier
@@ -27,8 +50,6 @@ class ModelTrainer:
         self.config = config
         self.params = params
 
-
-#### set MLflow here
 
     def load_train_valid_data(self):
         try:
@@ -206,44 +227,104 @@ class ModelTrainer:
             for model_name, model in models.items():
 
                 logger.info(f"Training {model_name}")
+                with mlflow.start_run(run_name=model_name):
 
-                search = self.tune_model(
-                    model=model,
-                    param_grid=param_grids[model_name],
-                    X_train=X_train,
-                    y_train=y_train,
-                )
-
-                logger.info(
-                    f"Best parameters found for {model_name}: "
-                    f"{search.best_params_}"
-                )
-
-                self.save_search_results(search.cv_results_, model_name,)
-                metrics = self.evaluate_model(search.best_estimator_, X_valid, y_valid,)
-                logger.info(
-                    f"{model_name} achieved Validation F1 Score: "
-                    f"{metrics['Validation F1']:.4f}"
-                )
-
-                results.append(
-                    {"Model": model_name, "Best CV F1": round(search.best_score_, 4,),
-                     **metrics, "Best Params": search.best_params_,
-                    }
-                )
-
-                if (metrics["Validation F1"] > best_validation_f1):
-                    best_validation_f1 = (metrics["Validation F1"])
-                    best_model = search.best_estimator_
-                    best_model_name = model_name
-                    best_params = search.best_params_
-                    logger.info(
-                        f"{model_name} is the current best model "
-                        f"with Validation F1 Score: {best_validation_f1:.4f}"
+                    search = self.tune_model(
+                        model=model,
+                        param_grid=param_grids[model_name],
+                        X_train=X_train,
+                        y_train=y_train,
                     )
+
+                    logger.info(
+                        f"Best parameters found for {model_name}: "
+                        f"{search.best_params_}"
+                    )
+
+                    self.save_search_results(search.cv_results_, model_name,)
+                    safe_name = model_name.lower().replace(" ", "_")
+
+                    mlflow.log_artifact(
+                        str(
+                            self.config.search_results_dir
+                            / f"{safe_name}_search_results.csv"
+                        )
+                    )
+
+                    metrics = self.evaluate_model(search.best_estimator_, X_valid, y_valid,)
+
+                    mlflow.log_params(search.best_params_)
+
+                    mlflow.log_metric("best_cv_f1", float(search.best_score_))
+                    mlflow.log_metric("validation_accuracy", metrics["Validation Accuracy"])
+                    mlflow.log_metric("validation_precision", metrics["Validation Precision"])
+                    mlflow.log_metric("validation_recall", metrics["Validation Recall"])
+                    mlflow.log_metric("validation_f1", metrics["Validation F1"])
+
+                    if metrics["Validation ROC-AUC"] is not None:
+                        mlflow.log_metric(
+                            "validation_roc_auc",
+                            metrics["Validation ROC-AUC"]
+                        )
+
+                    
+                    if model_name == "XGBoost":
+                        mlflow.xgboost.log_model(
+                            xgb_model=search.best_estimator_,
+                            artifact_path="model",
+                        )
+
+                    elif model_name == "CatBoost":
+                        mlflow.catboost.log_model(
+                            cb_model=search.best_estimator_,
+                            artifact_path="model",
+                        )
+
+                    else:
+                        mlflow.sklearn.log_model(
+                            sk_model=search.best_estimator_,
+                            artifact_path="model",
+                        ) 
+                        
+                    logger.info(
+                        f"{model_name} achieved Validation F1 Score: "
+                        f"{metrics['Validation F1']:.4f}"
+                    )
+
+                    results.append(
+                        {"Model": model_name, "Best CV F1": round(search.best_score_, 4,),
+                        **metrics, "Best Params": search.best_params_,
+                        }
+                    )
+
+                    if (metrics["Validation F1"] > best_validation_f1):
+                        best_validation_f1 = (metrics["Validation F1"])
+                        best_model = search.best_estimator_
+                        best_model_name = model_name
+                        best_params = search.best_params_
+                        logger.info(
+                            f"{model_name} is the current best model "
+                            f"with Validation F1 Score: {best_validation_f1:.4f}"
+                        )
 
             report_df = (pd.DataFrame(results).sort_values(by="Validation F1", ascending=False,).reset_index(drop=True))
             logger.info("Model comparison report generated successfully.")
+
+            # Calibrate only the final selected XGBoost model
+            if best_model_name == "XGBoost":
+                logger.info("Calibrating final XGBoost model.")
+
+                calibrated_model = CalibratedClassifierCV(
+                    estimator=best_model,
+                    method="sigmoid",  # You can also try "isotonic"
+                    cv=5,
+                )
+
+                calibrated_model.fit(X_train, y_train)
+
+                best_model = calibrated_model
+
+                logger.info("Calibration completed successfully.")
 
             self.save_artifacts(
                 best_model=best_model,
@@ -255,6 +336,15 @@ class ModelTrainer:
                 ),
             )
 
+            
+            with mlflow.start_run(run_name="best_model_summary"):
+                mlflow.log_artifact(str(self.config.best_model_path))
+                mlflow.log_artifact(str(self.config.model_report_path))
+                mlflow.log_artifact(str(self.config.best_params_path))
+
+                mlflow.log_param("best_model_name", best_model_name)
+                mlflow.log_metric("best_validation_f1", best_validation_f1)
+
             logger.info(
                 f"Model training completed successfully. "
                 f"Selected best model: {best_model_name} "
@@ -265,3 +355,4 @@ class ModelTrainer:
 
         except Exception as e:
             raise CustomException(e, sys)
+        
