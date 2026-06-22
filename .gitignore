@@ -229,8 +229,10 @@ logs/
 
 # Artifacts
 artifacts/
-
+artifacts/data_validation/
 # Data
 data/
 
 .vscode/
+
+catboost_info/
