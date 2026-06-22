@@ -1,0 +1,14 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI")
+MLFLOW_TRACKING_USERNAME = os.getenv("MLFLOW_TRACKING_USERNAME")
+MLFLOW_TRACKING_PASSWORD = os.getenv("MLFLOW_TRACKING_PASSWORD")
+MLFLOW_EXPERIMENT_NAME = os.getenv("MLFLOW_EXPERIMENT_NAME")
+
+if __name__ == "__main__"  :
+    print(f"URI: {MLFLOW_TRACKING_URI}")
+    print(f"USER NAME: {MLFLOW_TRACKING_USERNAME}")
+    print(f"EXPERIMENT NAME: {MLFLOW_EXPERIMENT_NAME}")
