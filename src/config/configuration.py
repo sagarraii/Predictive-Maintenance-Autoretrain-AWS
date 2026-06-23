@@ -8,7 +8,8 @@ from src.entity.config_entity import (
     ModelTrainerConfig,
     ModelEvaluationConfig,
     ModelTrainerParams,
-    RandomSearchParams
+    RandomSearchParams,
+    AWSConfig
     )
 
 class ConfigurationManager:
@@ -146,3 +147,11 @@ class ConfigurationManager:
         )
 
         return model_trainer_params
+    
+    #----------AWS Configuration-----------
+    
+    def get_aws_config(self) -> AWSConfig:
+        config = self.config.aws
+        return AWSConfig(
+            bucket_name=config.bucket_name
+        )
