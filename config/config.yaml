@@ -51,3 +51,5 @@ model_evaluation:
   model_acceptance_path: artifacts/evaluation/model_acceptance.yaml
   threshold_analysis_path: artifacts/evaluation/threshold_analysis.yaml
 
+aws:
+  bucket_name: "automated-predictive-maintenance-system"
