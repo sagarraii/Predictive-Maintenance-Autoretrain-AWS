@@ -64,3 +64,8 @@ class ModelTrainerParams:
     logistic_regression: dict
     xgboost: dict
     catboost: dict
+
+
+@dataclass(frozen=True)
+class AWSConfig:
+    bucket_name: str
