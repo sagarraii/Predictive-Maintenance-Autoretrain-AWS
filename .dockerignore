@@ -20,6 +20,7 @@ logs/
 
 # Training outputs and caches
 mlruns/
+
 # artifacts/
 dvc.lock
 .dvc/cache/
@@ -28,7 +29,12 @@ notebooks/
 
 # Local caches
 .cache/
-.pytest_cache/
 
 README.md
 .DS_Store
+
+tests/
+
+artifacts/
+
+docs/
