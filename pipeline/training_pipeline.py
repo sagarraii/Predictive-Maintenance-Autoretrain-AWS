@@ -1,5 +1,8 @@
 import sys
 
+from src.utils.s3_utils import S3Sync
+from src.config.configuration import ConfigurationManager
+
 from src.logger.logging_config import logger
 from src.exception.custom_exception import CustomException
 
@@ -14,7 +17,20 @@ from src.stages.model_evaluation_stage import ModelEvaluationPipeline
 
 class TrainingPipeline:
     def __init__(self):
-        pass
+        self.s3_sync = S3Sync()
+
+        config_manager = ConfigurationManager()
+        self.aws_config = config_manager.get_aws_config()
+
+    
+    def sync_artifacts_to_s3(self):
+        latest = f"s3://{self.aws_config.bucket_name}/artifacts/latest"
+
+        self.s3_sync.upload_folder(
+            local_folder="artifacts",
+            s3_uri=latest,
+        )
+
 
     def run_pipeline(self):
         try:
@@ -29,6 +45,8 @@ class TrainingPipeline:
             ModelTrainingPipeline().initiate_model_trainer()
 
             ModelEvaluationPipeline().initiate_model_evaluation()
+
+            self.sync_artifacts_to_s3()
 
             logger.info("========== Training Pipeline Completed ==========")
 
