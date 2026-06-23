@@ -5,8 +5,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: d3ca01a876a75701496f3b6b2994155d
-      size: 1683
+      md5: a37861ccd7e581849c49f705eba4e07c
+      size: 1745
     - path: src/components/data_ingestion.py
       hash: md5
       md5: b975e8b0dd97f84f227f5273fae08ff2
@@ -26,8 +26,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: d3ca01a876a75701496f3b6b2994155d
-      size: 1683
+      md5: a37861ccd7e581849c49f705eba4e07c
+      size: 1745
     - path: data/raw
       hash: md5
       md5: 15b33a30b0a5b0eff386c9a4dcc59dad.dir
@@ -60,8 +60,8 @@ stages:
       size: 1788
     - path: config/config.yaml
       hash: md5
-      md5: d3ca01a876a75701496f3b6b2994155d
-      size: 1683
+      md5: a37861ccd7e581849c49f705eba4e07c
+      size: 1745
     - path: data/preprocessed
       hash: md5
       md5: 7782ab45fb2915c3acf9b28171a576c9.dir
@@ -79,21 +79,3 @@ stages:
       hash: md5
       md5: 27ee7564358f33948d8a13f9bdf9da37
       size: 1290
-    outs:
-    - path: artifacts/models/best_model.pkl
-      hash: md5
-      md5: 656c590c8dcd6503562a94edfe9b1d32
-      size: 4966835
-    - path: artifacts/models/best_params.yaml
-      hash: md5
-      md5: ed179d60977d7d62cdbf9c13b522811d
-      size: 195
-    - path: artifacts/models/model_report.yaml
-      hash: md5
-      md5: bcc33912d1d44f45428c49a6576c8ada
-      size: 1248
-    - path: artifacts/models/search_results
-      hash: md5
-      md5: 97661f154078917d40d23fd48ec62700.dir
-      size: 6993
-      nfiles: 4

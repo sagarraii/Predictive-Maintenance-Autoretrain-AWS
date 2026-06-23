@@ -28,11 +28,6 @@ stages:
       - artifacts/preprocessors/preprocessor.pkl
       - config/config.yaml
       - params.yaml
-    outs:
-      - artifacts/models/best_model.pkl
-      - artifacts/models/best_params.yaml
-      - artifacts/models/model_report.yaml
-      - artifacts/models/search_results
-
+      
 # Run pipeline to generate/update the dvc.lock file
 # dvc repro
