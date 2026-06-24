@@ -14,10 +14,11 @@ configuration = ConfigurationManager()
 
 aws_config = configuration.get_aws_config()
 
-S3Sync.download_folder(
-    s3_uri=f"s3://{aws_config.bucket_name}/artifacts/latest",
-    local_folder="artifacts",
-)
+def download_artifacts():
+    S3Sync.download_folder(
+        s3_uri=f"s3://{aws_config.bucket_name}/artifacts/latest",
+        local_folder="artifacts",
+    )
 
 transformation_config = configuration.get_data_transformation_config()
 model_trainer_config = configuration.get_model_trainer_config()
@@ -75,6 +76,9 @@ def predict():
 
 
 if __name__ == "__main__":
+
+    download_artifacts()
+    
     app.run(
         host="0.0.0.0",
         port=5000,
