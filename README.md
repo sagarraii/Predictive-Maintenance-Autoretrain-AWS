@@ -393,6 +393,15 @@ The selected model (`best_model.pkl`) was evaluated **exactly once** on the unto
 ![Confusion Matrix](docs/confusion_matrix.png)
 
 
+><b>Interpretation</b><>br<br>
+1. True Negatives (TN): 1419<br>
+The model correctly identified 1,419 healthy machines as having no failure.<br><br>
+2. False Positives (FP): 30<br>
+30 healthy machines were incorrectly classified as failures, resulting in unnecessary maintenance recommendations.<br><br>
+3. False Negatives (FN): 9<br>
+Only 9 actual machine failures were missed by the model. Since undetected failures can lead to unexpected downtime and costly repairs, minimizing false negatives was an important objective.<br><br>
+4. True Positives (TP): 42<br>
+The model successfully detected 42 machine failures, allowing maintenance to be scheduled before breakdowns occur.
 ---
 
 ## 🚀 MLOps & Deployment
