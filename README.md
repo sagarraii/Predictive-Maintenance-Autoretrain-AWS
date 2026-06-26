@@ -533,10 +533,10 @@ No project writeup is complete without naming the rough edges:
 
 ## 👤 Author
 
-**Abhi**
+**Sagar Rai**
 *Self-taught ML practitioner | Building toward MLOps / AI Engineering roles*
 
-📫 Open to connecting — feel free to reach out via [LinkedIn](#) or [GitHub](#).
+📫 Open to connecting — feel free to reach out via [LinkedIn](www.linkedin.com/in/mr-raiii) or [GitHub](https://github.com/sagarraii).
 
 ---
 
