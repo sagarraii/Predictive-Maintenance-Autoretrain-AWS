@@ -321,7 +321,7 @@ Final evaluation run **once**, on the previously untouched test set:
 - Threshold sensitivity analysis across `[0.3, 0.4, 0.5, 0.6, 0.7]`
 - All metrics and artifacts logged to **MLflow**, tracked remotely on **DagsHub**
 
-🔗 **Experiment Dashboard:** [DagsHub MLflow Tracking](#) <!-- replace with your actual DagsHub experiment URL -->
+🔗 **Experiment Dashboard:** [DagsHub MLflow Tracking](https://dagshub.com/sagarraii/Predictive-Maintenance-Autoretrain-AWS/experiments) <!-- replace with your actual DagsHub experiment URL -->
 
 ---
 
