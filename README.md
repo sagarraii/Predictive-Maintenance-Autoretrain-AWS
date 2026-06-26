@@ -104,13 +104,13 @@ Every stage — ingestion, validation, transformation, training, evaluation, and
 
 ---
 
-## 🖥️ Live Demo / Screenshot
+## 🖥️ App UI Screenshot
 
-> *Add a screenshot or GIF of your Flask app here — this is the single highest-impact thing you can add to this README.*
+> App UI
 
-```markdown
-![App Screenshot](docs/app_screenshot.png)
-```
+
+![App Screenshot](docs/app_ss.png)
+
 
 ---
 
