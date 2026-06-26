@@ -15,9 +15,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Deployed-success?style=flat-square)](#)
 <!-- Repo-specific badges — replace <user>/<repo> once pushed -->
-[![Last Commit](https://img.shields.io/github/last-commit/<user>/<repo>?style=flat-square)](#)
-[![Repo Size](https://img.shields.io/github/repo-size/<user>/<repo>?style=flat-square)](#)
-[![Stars](https://img.shields.io/github/stars/<user>/<repo>?style=flat-square)](#)
+[![Last Commit](https://img.shields.io/github/last-commit/sagarraii/Predictive-Maintenance-Autoretrain-AWS?style=flat-square)](#)
+[![Repo Size](https://img.shields.io/github/repo-size/sagarraii/Predictive-Maintenance-Autoretrain-AWS?style=flat-square)](#)
+[![Stars](https://img.shields.io/github/stars/sagarraii/Predictive-Maintenance-Autoretrain-AWS?style=flat-square)](#)
 
 *A complete, modular, industry-style ML system that predicts machine failure from sensor data — built from raw data ingestion all the way through to a CI/CD-deployed, containerized Flask application on AWS.*
 
