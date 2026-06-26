@@ -392,7 +392,7 @@ The selected model (`best_model.pkl`) was evaluated **exactly once** on the unto
 > *(Add `artifacts/evaluation/confusion_matrix.png` here once you commit it — it's a strong visual to include alongside this table.)*
 
 ```markdown
-![Confusion Matrix](D:\Automated_Predictive_Maintenance\artifacts\evaluation\confusion_matrix.png)
+![Confusion Matrix](docs/confusion_matrix.png)
 ```
 
 ---
