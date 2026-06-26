@@ -389,6 +389,7 @@ The selected model (`best_model.pkl`) was evaluated **exactly once** on the unto
 
 > Recall jumped meaningfully on the test set (0.8235 vs. 0.7451 on validation) — in a predictive maintenance context, this is the metric to optimize for, since a missed failure (false negative) is far costlier than a false alarm.
 
+Confusion Matrix:
 
 ![Confusion Matrix](docs/confusion_matrix.png)
 
