@@ -345,7 +345,7 @@ This is the part of the project that separates it from a typical tutorial walkth
 
 Four algorithms, tuned via `RandomizedSearchCV`, compared on the **validation set**:
 
-![Model Comparison Chart](assets/model_comparison.png)
+![Model Comparison Chart](docs/model_comparison.png)
 
 | Model | Best CV F1 | Val Accuracy | Val F1 | Val Precision | Val Recall | Val ROC-AUC |
 |---|---|---|---|---|---|---|
@@ -392,7 +392,7 @@ The selected model (`best_model.pkl`) was evaluated **exactly once** on the unto
 > *(Add `artifacts/evaluation/confusion_matrix.png` here once you commit it — it's a strong visual to include alongside this table.)*
 
 ```markdown
-![Confusion Matrix](artifacts/evaluation/confusion_matrix.png)
+![Confusion Matrix](D:\Automated_Predictive_Maintenance\artifacts\evaluation\confusion_matrix.png)
 ```
 
 ---
