@@ -394,7 +394,7 @@ Confusion Matrix:
 ![Confusion Matrix](docs/confusion_matrix.png)
 
 
-><b>Interpretation</b><>br<br>
+><b>Interpretation</b><br><br>
 1. True Negatives (TN): 1419<br>
 The model correctly identified 1,419 healthy machines as having no failure.<br><br>
 2. False Positives (FP): 30<br>
